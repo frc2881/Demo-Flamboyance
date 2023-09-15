@@ -56,19 +56,19 @@ public class RobotContainer {
       new DriveWithJoysticks(m_driveTrain, () -> -m_driver.getLeftY(),
                              () -> m_driver.getRightX()));
 
-    new Trigger(m_manipulator::getAButton).
+    new Trigger(m_driver::getAButton).
       whileTrue(new ExtendIntake(m_intake));
 
-    new Trigger(m_manipulator::getXButton).
+    new Trigger(m_driver::getXButton).
       whileTrue(new RunIntake(m_intake));
 
-    new Trigger(() -> m_manipulator.getLeftTriggerAxis() > 0.1).
+    new Trigger(() -> m_driver.getLeftTriggerAxis() > 0.1).
       onTrue(new ScoreLeft(m_leftCatapult, m_intake));
 
-    new Trigger(() -> m_manipulator.getRightTriggerAxis() > 0.1).
+    new Trigger(() -> m_driver.getRightTriggerAxis() > 0.1).
       onTrue(new ScoreRight(m_rightCatapult, m_intake));
                       
-    new Trigger(m_manipulator::getBackButton).
+    new Trigger(m_driver::getBackButton).
       whileTrue(new CatapultOverride(m_leftCatapult, m_rightCatapult));
   }
 
