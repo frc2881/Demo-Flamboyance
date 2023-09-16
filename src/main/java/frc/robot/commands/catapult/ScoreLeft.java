@@ -10,12 +10,14 @@ import static frc.robot.Constants.Catapult.kShootTimeout;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LeftCatapult;
 
 public class ScoreLeft extends SequentialCommandGroup {
   public ScoreLeft(LeftCatapult leftCatapult, Intake intake) {
     addCommands(new InstantCommand(() -> intake.shootExtend(), intake),
+                new WaitCommand(1),
                 new ShootLeft(leftCatapult).withTimeout(kShootTimeout),
                 new ResetLeft(leftCatapult).withTimeout(kResetTimeout),
                 new InstantCommand(() -> intake.shootRetract(), intake));
