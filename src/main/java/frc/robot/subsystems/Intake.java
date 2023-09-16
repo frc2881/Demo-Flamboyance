@@ -80,4 +80,7 @@ public class Intake extends SubsystemBase {
       m_solenoid.set(false);
     }
   }
+  public boolean getButtonExtend(){
+    return buttonExtend;
+  }
 }
