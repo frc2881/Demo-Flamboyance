@@ -8,10 +8,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.catapult.CatapultOverride;
-import frc.robot.commands.catapult.ScoreLeft;
-import frc.robot.commands.catapult.ScoreRight;
+import frc.robot.commands.catapult.ScoreLeftConditional;
+import frc.robot.commands.catapult.ScoreRightConditional;
 import frc.robot.commands.drive.DriveWithJoysticks;
 import frc.robot.commands.intake.ExtendIntake;
 import frc.robot.commands.intake.RunIntake;
@@ -63,13 +65,19 @@ public class RobotContainer {
       whileTrue(new RunIntake(m_intake));
 
     new Trigger(() -> m_driver.getLeftTriggerAxis() > 0.1).
-      onTrue(new ScoreLeft(m_leftCatapult, m_intake));
+      onTrue(new ScoreLeftConditional(m_leftCatapult, m_intake));
 
     new Trigger(() -> m_driver.getRightTriggerAxis() > 0.1).
-      onTrue(new ScoreRight(m_rightCatapult, m_intake));
+      onTrue(new ScoreRightConditional(m_rightCatapult, m_intake));
                       
     new Trigger(m_driver::getBackButton).
       whileTrue(new CatapultOverride(m_leftCatapult, m_rightCatapult));
+
+    new Trigger(m_manipulator::getAButton).
+      onTrue(Commands.runOnce(() -> {m_driveTrain.IsEnabled = true;}));
+
+    new Trigger(m_manipulator::getXButton).
+      onTrue(Commands.runOnce(() -> {m_driveTrain.IsEnabled = false;}));
   }
 
   /**

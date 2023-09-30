@@ -26,6 +26,7 @@ public class DriveTrain extends SubsystemBase {
   private final WPI_TalonSRX m_rightFront = new WPI_TalonSRX(kRightFrontMotor);
   private final WPI_TalonSRX m_rightRear = new WPI_TalonSRX(kRightRearMotor);
   private final DifferentialDrive m_drive = new DifferentialDrive(m_leftFront, m_rightFront);
+  public boolean IsEnabled = true;
 
   /** Creates a new ExampleSubsystem. */
   public DriveTrain() {
@@ -71,10 +72,14 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double speed, double rotation) {
-    m_drive.arcadeDrive(speed, rotation);
+    if (IsEnabled) {
+      m_drive.arcadeDrive(speed, rotation);
+    }
   }
 
   public void tankDrive(double left, double right) {
-    m_drive.tankDrive(left, right);
+    if (IsEnabled) {
+      m_drive.tankDrive(left, right);
+    }
   }
 }
