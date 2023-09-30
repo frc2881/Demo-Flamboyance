@@ -74,10 +74,10 @@ public class RobotContainer {
       whileTrue(new CatapultOverride(m_leftCatapult, m_rightCatapult));
 
     new Trigger(m_manipulator::getAButton).
-      onTrue(Commands.runOnce(() -> {Robot.IsEnabled = true;}));
+      onTrue(Commands.runOnce(() -> {m_driveTrain.IsEnabled = true;}));
 
     new Trigger(m_manipulator::getXButton).
-      onTrue(Commands.runOnce(() -> {Robot.IsEnabled = false;}));
+      onTrue(Commands.runOnce(() -> {m_driveTrain.IsEnabled = false;}));
   }
 
   /**
