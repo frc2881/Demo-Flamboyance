@@ -25,6 +25,7 @@ class Game:
   def launch(self, position: Position) -> Command:
     return ( 
       self._robot.launcher.run_(position)
+      .andThen(self.rumbleControllers(ControllerRumbleMode.Driver))
       .onlyIf(lambda: self._robot.intake.isExtended())
       .withName(f'Game:Launch:{ position.name }')
     )
