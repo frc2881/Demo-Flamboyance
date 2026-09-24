@@ -1,5 +1,5 @@
 from wpilib import AddressableLED
-from lib import logger, utils
+from lib import logger, telemetry, utils
 from core.classes import LightsMode
 
 class Lights():

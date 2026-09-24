@@ -1,7 +1,7 @@
 from commands2 import Subsystem, Command
 from wpilib import Compressor, Solenoid, PneumaticsModuleType
 from phoenix5 import WPI_TalonSRX, NeutralMode
-from lib import logger, utils
+from lib import logger, telemetry, utils
 import core.constants as constants
 
 class Intake(Subsystem):

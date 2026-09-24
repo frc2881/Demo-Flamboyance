@@ -1,6 +1,6 @@
 from commands2 import Subsystem, Command
 from rev import SparkBaseConfig, SparkLowLevel, SparkMax, ResetMode, PersistMode
-from lib import logger, utils
+from lib import logger, telemetry, utils
 from lib.classes import Position
 import core.constants as constants
 
