@@ -1,5 +1,5 @@
-from commands2 import Subsystem, Command
 from wpilib import Compressor, Solenoid, PneumaticsModuleType
+from commands2 import Subsystem, Command
 from phoenix5 import WPI_TalonSRX, NeutralMode
 from lib import logger, telemetry, utils
 import core.constants as constants
@@ -8,6 +8,8 @@ class Intake(Subsystem):
   def __init__(self) -> None:
     super().__init__()
     self._constants = constants.Subsystems.Intake
+
+    self._telemetryName = "Robot/Subsystems/Intake"
 
     self._rollers = WPI_TalonSRX(5)
     self._rollers.setNeutralMode(NeutralMode.Brake)

@@ -1,7 +1,8 @@
 from wpimath import units
 from lib import logger, telemetry, utils
 from lib.classes import (
-  RobotType
+  RobotType,
+  XboxControllerConfig
 )
 
 class Subsystems:
@@ -16,8 +17,8 @@ class Subsystems:
     pass
 
 class Controllers:
-  DRIVER_CONTROLLER_PORT: int = 0
-  OPERATOR_CONTROLLER_PORT: int = 1
+  DRIVER_CONTROLLER_CONFIG = XboxControllerConfig(port = 0, inputDeadband = 0.1, telemetryName = "Robot/Controllers/Driver")
+  # OPERATOR_CONTROLLER_CONFIG = XboxControllerConfig(port = 1, inputDeadband = 0.1, telemetryName = "Robot/Controllers/Operator")
   INPUT_DEADBAND: units.percent = 0.1
 
 class Game:

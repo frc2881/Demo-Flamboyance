@@ -1,5 +1,5 @@
 from commands2 import Subsystem, Command
-from rev import SparkBaseConfig, SparkLowLevel, SparkMax, ResetMode, PersistMode
+from rev import SparkBaseConfig, SparkLowLevel
 from lib import logger, telemetry, utils
 from lib.classes import Position
 import core.constants as constants
@@ -9,28 +9,30 @@ class Launcher(Subsystem):
     super().__init__()
     self._constants = constants.Subsystems.Launcher
 
-    self._motorCatapultLeft = SparkMax(16, SparkLowLevel.MotorType.kBrushless)
-    self._motorCatapultRight = SparkMax(17, SparkLowLevel.MotorType.kBrushless)
+    self._telemetryName = "Robot/Subsystems/Launcher"
 
-    self._motorConfig = SparkBaseConfig()
-    (self._motorConfig
+    self._catapultLeft = utils.getSparkController(16, SparkLowLevel.SparkModel.kSparkMax, SparkLowLevel.MotorType.kBrushless)
+    self._catapultRight = utils.getSparkController(17, SparkLowLevel.SparkModel.kSparkMax, SparkLowLevel.MotorType.kBrushless)
+    sparkConfig = SparkBaseConfig()
+    (sparkConfig
       .smartCurrentLimit(200)
       .setIdleMode(SparkBaseConfig.IdleMode.kBrake)
-      .inverted(False))
-    (self._motorConfig.encoder
+      .inverted(False)
+    )
+    (sparkConfig.encoder
       .positionConversionFactor(1.0)
-      .velocityConversionFactor(1.0))
-    (self._motorConfig.softLimit
+      .velocityConversionFactor(1.0)
+    )
+    (sparkConfig.softLimit
       .reverseSoftLimitEnabled(True)
       .reverseSoftLimit(-0.1)
       .forwardSoftLimitEnabled(True)
-      .forwardSoftLimit(9.0))
-    
-    utils.setSparkConfig(self._motorCatapultLeft.configure(self._motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters))
-    utils.setSparkConfig(self._motorCatapultRight.configure(self._motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters))
-
-    self._motorCatapultLeft.getEncoder().setPosition(0)
-    self._motorCatapultRight.getEncoder().setPosition(0)
+      .forwardSoftLimit(9.0)
+    )
+    utils.configureSparkController(self._catapultLeft, sparkConfig)
+    utils.configureSparkController(self._catapultRight, sparkConfig)
+    self._catapultLeft.getEncoder().setPosition(0)
+    self._catapultRight.getEncoder().setPosition(0)
 
   def periodic(self) -> None:
     self._updateTelemetry()
@@ -44,24 +46,24 @@ class Launcher(Subsystem):
   def _launch(self, position: Position) -> None:
     match position:
       case Position.Left:
-        self._motorCatapultLeft.set(0.5)
+        self._catapultLeft.set(0.5)
       case Position.Right:
-        self._motorCatapultRight.set(0.5)
+        self._catapultRight.set(0.5)
       case _:
         pass
 
   def _reload(self, position: Position) -> None:
     match position:
       case Position.Left:
-        self._motorCatapultLeft.set(-0.5)
+        self._catapultLeft.set(-0.5)
       case Position.Right:
-        self._motorCatapultRight.set(-0.5)
+        self._catapultRight.set(-0.5)
       case _:
         pass
 
   def reset(self) -> None:
-    self._motorCatapultLeft.stopMotor()
-    self._motorCatapultRight.stopMotor()
+    self._catapultLeft.stopMotor()
+    self._catapultRight.stopMotor()
 
   def _updateTelemetry(self) -> None:
     pass

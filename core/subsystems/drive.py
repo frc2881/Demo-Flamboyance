@@ -1,8 +1,8 @@
 from typing import Callable
-from commands2 import Subsystem, Command
 from wpilib.drive import DifferentialDrive
 from wpimath import units
 from wpimath.filter import SlewRateLimiter
+from commands2 import Subsystem, Command
 from phoenix5 import WPI_TalonSRX, NeutralMode, InvertType
 from lib import logger, telemetry, utils
 import core.constants as constants
@@ -13,6 +13,8 @@ class Drive(Subsystem):
     ) -> None:
     super().__init__()
     self._constants = constants.Subsystems.Drive
+
+    self._telemetryName = "Robot/Subsystems/Drive"
 
     self._leftFrontMotor = WPI_TalonSRX(0)
     self._leftFrontMotor.setNeutralMode(NeutralMode.Brake)

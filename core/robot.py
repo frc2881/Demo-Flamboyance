@@ -1,5 +1,5 @@
-from commands2 import Command, cmd
 from wpilib import DriverStation
+from commands2 import Command, cmd
 from lib import logger, telemetry, utils
 from lib.classes import Position
 from lib.controllers.xbox import XboxController
@@ -39,10 +39,12 @@ class RobotCore:
 
   def _initControllers(self) -> None:
     DriverStation.silenceJoystickConnectionWarning(not utils.isCompetitionMode())
-    self.driver = XboxController(constants.Controllers.DRIVER_CONTROLLER_PORT, constants.Controllers.INPUT_DEADBAND)
+    self.driver = XboxController(constants.Controllers.DRIVER_CONTROLLER_CONFIG)
+    # self.operator = XboxController(constants.Controllers.OPERATOR_CONTROLLER_CONFIG)
 
   def _initTriggers(self) -> None:
     self._setupDriver()
+    # self._setupOperator()
 
   def _setupDriver(self) -> None:
     self.drive.setDefaultCommand(self.drive.drive(self.driver.getLeftY, self.driver.getRightX))

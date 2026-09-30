@@ -2,7 +2,6 @@
 
 from commands2 import CommandScheduler, cmd, TimedCommandRobot
 from rev import StatusLogger
-from phoenix6.signal_logger import SignalLogger
 from lib import logger, telemetry, utils
 from lib.classes import RobotMode
 from core.robot import RobotCore
@@ -10,9 +9,8 @@ from core.robot import RobotCore
 class Robot(TimedCommandRobot):
   def __init__(self) -> None:
     StatusLogger.disableAutoLogging()
-    SignalLogger.enable_auto_logging(False)
     TimedCommandRobot.__init__(self)
-    utils.setRobotInstance(self)
+    utils.initRobot(self)
     logger.start()
     telemetry.start()
     self._auto = cmd.none()
