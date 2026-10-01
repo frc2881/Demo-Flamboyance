@@ -23,7 +23,7 @@ class Controllers:
 
 class Game:
   class Robot:
-    TYPE = RobotType.Demo
+    TYPE = RobotType.DEMO
     NAME: str = "Flamboyance (Demo)"
 
   class Commands:

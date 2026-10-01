@@ -45,18 +45,18 @@ class Launcher(Subsystem):
 
   def _launch(self, position: Position) -> None:
     match position:
-      case Position.Left:
+      case Position.LEFT:
         self._catapultLeft.set(0.5)
-      case Position.Right:
+      case Position.RIGHT:
         self._catapultRight.set(0.5)
       case _:
         pass
 
   def _reload(self, position: Position) -> None:
     match position:
-      case Position.Left:
+      case Position.LEFT:
         self._catapultLeft.set(-0.5)
-      case Position.Right:
+      case Position.RIGHT:
         self._catapultRight.set(-0.5)
       case _:
         pass
