@@ -92,6 +92,8 @@ class RobotCore:
 
   def reset(self) -> None:
     self.drive.reset()
+    self.launcher.reset()
+    self.intake.reset()
 
   def isHoming(self) -> bool:
     return False

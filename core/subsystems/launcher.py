@@ -26,7 +26,7 @@ class Launcher(Subsystem):
       .reverseSoftLimitEnabled(True)
       .reverseSoftLimit(-0.1)
       .forwardSoftLimitEnabled(True)
-      .forwardSoftLimit(9.0)
+      .forwardSoftLimit(8.0)
     )
     utils.configureSparkController(self._catapultLeft, sparkConfig)
     self._catapultLeft.getEncoder().setPosition(0)
@@ -72,9 +72,9 @@ class Launcher(Subsystem):
   def _reload(self, position: Position) -> None:
     match position:
       case Position.LEFT:
-        self._catapultLeft.set(-0.1)
+        self._catapultLeft.set(-0.05)
       case Position.RIGHT:
-        self._catapultRight.set(-0.1)
+        self._catapultRight.set(-0.05)
       case _:
         pass
 
