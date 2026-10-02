@@ -2,6 +2,7 @@ from wpimath import units
 from lib import logger, telemetry, utils
 from lib.classes import (
   RobotType,
+  SpeedMode,
   XboxControllerConfig
 )
 
@@ -9,6 +10,8 @@ class Subsystems:
   class Drive:
     INPUT_LIMIT_DEMO: units.percent = 0.5
     INPUT_RATE_LIMIT_DEMO: units.percent = 0.5
+
+    SPEED_MODE = SpeedMode.COMPETITION
 
   class Intake:
     pass

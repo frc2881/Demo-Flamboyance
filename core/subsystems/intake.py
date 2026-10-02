@@ -1,6 +1,6 @@
 from wpilib import Compressor, Solenoid, PneumaticsModuleType
 from commands2 import Subsystem, Command
-from phoenix5 import WPI_TalonSRX, NeutralMode
+from phoenix5 import WPI_TalonSRX, NeutralMode, InvertType
 from lib import logger, telemetry, utils
 import core.constants as constants
 
@@ -16,6 +16,7 @@ class Intake(Subsystem):
     self._rollers.configContinuousCurrentLimit(30)
     self._rollers.configPeakCurrentLimit(0)
     self._rollers.enableCurrentLimit(True)
+    self._rollers.setInverted(InvertType.InvertMotorOutput)
 
     self._compressor = Compressor(PneumaticsModuleType.CTREPCM)
     self._compressor.enableDigital()
