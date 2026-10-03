@@ -11,7 +11,7 @@ class Subsystems:
     INPUT_LIMIT_DEMO: units.percent = 0.5
     INPUT_RATE_LIMIT_DEMO: units.percent = 0.5
 
-    SPEED_MODE = SpeedMode.COMPETITION
+    SPEED_MODE = SpeedMode.DEMO
 
   class Intake:
     pass

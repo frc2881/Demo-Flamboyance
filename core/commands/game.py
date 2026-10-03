@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 from wpilib import RobotBase
+from wpimath import units
 from commands2 import Command, cmd
 from lib import logger, telemetry, utils
 from lib.classes import Position, ControllerRumbleMode, ControllerRumblePattern
@@ -22,9 +23,9 @@ class Game:
       .withName("Game:RetractIntake")
     ) 
 
-  def launch(self, position: Position) -> Command:
+  def launch(self, position: Position, speed: units.percent) -> Command:
     return ( 
-      self._robot.launcher.run_(position)
+      self._robot.launcher.run_(position, speed)
       .andThen(self.rumbleControllers(ControllerRumbleMode.DRIVER))
       .onlyIf(lambda: self._robot.intake.isExtended())
       .withName(f'Game:Launch:{ position.name }')

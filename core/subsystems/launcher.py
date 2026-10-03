@@ -1,4 +1,5 @@
 from commands2 import Subsystem, Command
+from wpimath import units
 from rev import SparkBaseConfig, SparkLowLevel
 from lib import logger, telemetry, utils
 from lib.classes import Position
@@ -54,18 +55,18 @@ class Launcher(Subsystem):
   def periodic(self) -> None:
     self._updateTelemetry()
 
-  def run_(self, position: Position) -> Command:
+  def run_(self, position: Position, speed: units.percent) -> Command:
     return self.startEnd(
-      lambda: self._launch(position),
+      lambda: self._launch(position, speed),
       lambda: self._reload(position)
     )
 
-  def _launch(self, position: Position) -> None:
+  def _launch(self, position: Position, speed: units.percent) -> None:
     match position:
       case Position.LEFT:
-        self._catapultLeft.set(0.5)
+        self._catapultLeft.set(speed)
       case Position.RIGHT:
-        self._catapultRight.set(0.5)
+        self._catapultRight.set(speed)
       case _:
         pass
 

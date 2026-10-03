@@ -26,6 +26,6 @@ class Lights():
     for i in range(self._ledLength):
       hue = (self._rainbowFirstPixelHue + (i * 180 / self._ledLength)) % 180
       self._ledData[i].setHSV(int(hue), 255, 128)
-    self.rainbowFirstPixelHue += 3
-    self.rainbowFirstPixelHue %= 180
+    self._rainbowFirstPixelHue += 3
+    self._rainbowFirstPixelHue %= 180
     self._led.setData(self._ledData)
